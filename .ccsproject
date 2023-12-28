@@ -16,4 +16,5 @@
 	<templateProperties value="id=uart_loopback_24mhz_brclk_MSP_EXP432P401R_nortos_ccs.projectspec.uart_loopback_24mhz_brclk_MSP_EXP432P401R_nortos_ccs,buildProfile=release,isHybrid=true"/>
 	<origin value="E:\ti\css\simplelink_msp432p4_sdk_3_40_01_02\examples\nortos\MSP_EXP432P401R\driverlib\uart_loopback_24mhz_brclk\ccs\uart_loopback_24mhz_brclk_MSP_EXP432P401R_nortos_ccs.projectspec"/>
 	<filesToOpen value=""/>
+	<isTargetManual value="false"/>
 </projectOptions>

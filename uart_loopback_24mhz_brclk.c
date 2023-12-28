@@ -53,7 +53,7 @@
  *******************************************************************************/
 /* DriverLib Includes */
 #include <ti/devices/msp432p4xx/driverlib/driverlib.h>
-//#include <ti/devices/msp432p4xx/inc/msp.h>
+#include <ti/devices/msp432p4xx/inc/msp.h>
 
 /* Standard Includes */
 #include <stdint.h>
@@ -61,6 +61,7 @@
 
 uint8_t TXData = 1;
 uint8_t RXData = 0;
+uint_fast8_t data[256];
 
 /* UART Configuration Parameter. These are the configuration parameters to
  * make the eUSCI A UART module to operate with a 115200 baud rate. These
@@ -116,22 +117,27 @@ int main(void)
     MAP_UART_transmitData(EUSCI_A2_BASE, 's');
     while(1)
     {
-        UART_transmitData(EUSCI_A2_BASE, RXData);
+        for(int i = 0; i < 256; ++i){
+            MAP_UART_transmitData(EUSCI_A2_BASE, data[i]);
+        }
 
         MAP_Interrupt_enableSleepOnIsrExit();
         MAP_PCM_gotoLPM0InterruptSafe();
     }
 }
-
+uint_fast16_t i = 0;
 /* EUSCI A0 UART ISR - Echos data back to PC host */
 void EUSCIA2_IRQHandler(void)
 {
     uint32_t status = MAP_UART_getEnabledInterruptStatus(EUSCI_A2_BASE);
 
-    if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG)
-    {
+    if(status & EUSCI_A_UART_RECEIVE_INTERRUPT_FLAG){
         RXData = MAP_UART_receiveData(EUSCI_A2_BASE);
-        MAP_Interrupt_disableSleepOnIsrExit();
+        if(i < 256){
+            data[i++] = RXData;
+        }else{
+            MAP_Interrupt_disableSleepOnIsrExit();
+        }
     }
 
 }
