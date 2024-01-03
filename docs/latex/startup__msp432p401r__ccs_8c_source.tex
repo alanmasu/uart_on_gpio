@@ -1,0 +1,212 @@
+\doxysection{startup\+\_\+msp432p401r\+\_\+ccs.\+c}
+\hypertarget{startup__msp432p401r__ccs_8c_source}{}\label{startup__msp432p401r__ccs_8c_source}\index{ccs/startup\_msp432p401r\_ccs.c@{ccs/startup\_msp432p401r\_ccs.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00001}00001\ \textcolor{comment}{/******************************************************************************}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00002}00002\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00003}00003\ \textcolor{comment}{*\ \ Copyright\ (C)\ 2012\ -\/\ 2018\ Texas\ Instruments\ Incorporated\ -\/\ http://www.ti.com/\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00004}00004\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00005}00005\ \textcolor{comment}{*\ \ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00006}00006\ \textcolor{comment}{*\ \ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00007}00007\ \textcolor{comment}{*\ \ are\ met:}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00008}00008\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00009}00009\ \textcolor{comment}{*\ \ \ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00010}00010\ \textcolor{comment}{*\ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00011}00011\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00012}00012\ \textcolor{comment}{*\ \ \ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00013}00013\ \textcolor{comment}{*\ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00014}00014\ \textcolor{comment}{*\ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ \ \ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00015}00015\ \textcolor{comment}{*\ \ \ distribution.}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00016}00016\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00017}00017\ \textcolor{comment}{*\ \ \ Neither\ the\ name\ of\ Texas\ Instruments\ Incorporated\ nor\ the\ names\ of}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00018}00018\ \textcolor{comment}{*\ \ \ its\ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00019}00019\ \textcolor{comment}{*\ \ \ from\ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00020}00020\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00021}00021\ \textcolor{comment}{*\ \ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00022}00022\ \textcolor{comment}{*\ \ "{}AS\ IS"{}\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00023}00023\ \textcolor{comment}{*\ \ LIMITED\ TO,\ THE\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00024}00024\ \textcolor{comment}{*\ \ A\ PARTICULAR\ PURPOSE\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00025}00025\ \textcolor{comment}{*\ \ OWNER\ OR\ CONTRIBUTORS\ BE\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00026}00026\ \textcolor{comment}{*\ \ SPECIAL,\ EXEMPLARY,\ OR\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00027}00027\ \textcolor{comment}{*\ \ LIMITED\ TO,\ PROCUREMENT\ OF\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00028}00028\ \textcolor{comment}{*\ \ DATA,\ OR\ PROFITS;\ OR\ BUSINESS\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00029}00029\ \textcolor{comment}{*\ \ THEORY\ OF\ LIABILITY,\ WHETHER\ IN\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00030}00030\ \textcolor{comment}{*\ \ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00031}00031\ \textcolor{comment}{*\ \ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE\ POSSIBILITY\ OF\ SUCH\ DAMAGE.\ \ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00032}00032\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00033}00033\ \textcolor{comment}{*\ \ MSP432P401R\ Interrupt\ Vector\ Table}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00034}00034\ \textcolor{comment}{*\ }}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00035}00035\ \textcolor{comment}{*****************************************************************************/}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00037}00037\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00039}00039\ \textcolor{comment}{/*\ Linker\ variable\ that\ marks\ the\ top\ of\ the\ stack.\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00040}00040\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \_\_STACK\_END;}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00042}00042\ \textcolor{comment}{/*\ External\ declaration\ for\ the\ reset\ handler\ that\ is\ to\ be\ called\ when\ the\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00043}00043\ \textcolor{comment}{/*\ processor\ is\ started\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00044}00044\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \_c\_int00(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00046}00046\ \textcolor{comment}{/*\ External\ declaration\ for\ system\ initialization\ function\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00047}00047\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ SystemInit(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00049}00049\ \textcolor{comment}{/*\ Forward\ declaration\ of\ the\ default\ fault\ handlers.\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00050}00050\ \textcolor{keywordtype}{void}\ Default\_Handler\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00051}00051\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ Reset\_Handler\ \ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00053}00053\ \textcolor{comment}{/*\ Cortex-\/M4\ Processor\ Exceptions\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00054}00054\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ NMI\_Handler\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00055}00055\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ HardFault\_Handler\ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00056}00056\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ MemManage\_Handler\ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00057}00057\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ BusFault\_Handler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00058}00058\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ UsageFault\_Handler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00059}00059\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ SVC\_Handler\ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00060}00060\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DebugMon\_Handler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00061}00061\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PendSV\_Handler\ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,\ alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00063}00063\ \textcolor{comment}{/*\ device\ specific\ interrupt\ handler\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00064}00064\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ SysTick\_Handler\ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00065}00065\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PSS\_IRQHandler\ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00066}00066\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ CS\_IRQHandler\ \ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00067}00067\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PCM\_IRQHandler\ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00068}00068\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ WDT\_A\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00069}00069\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ FPU\_IRQHandler\ \ \ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00070}00070\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ FLCTL\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00071}00071\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ COMP\_E0\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00072}00072\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ COMP\_E1\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00073}00073\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA0\_0\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00074}00074\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA0\_N\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00075}00075\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA1\_0\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00076}00076\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA1\_N\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00077}00077\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA2\_0\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00078}00078\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA2\_N\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00079}00079\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA3\_0\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00080}00080\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ TA3\_N\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00081}00081\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIA0\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00082}00082\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIA1\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00083}00083\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}{EUSCIA2\_IRQHandler}}\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00084}00084\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIA3\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00085}00085\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIB0\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00086}00086\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIB1\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00087}00087\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIB2\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00088}00088\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ EUSCIB3\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00089}00089\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ ADC14\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00090}00090\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ T32\_INT1\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00091}00091\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ T32\_INT2\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00092}00092\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ T32\_INTC\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00093}00093\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ AES256\_IRQHandler\ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00094}00094\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ RTC\_C\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00095}00095\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DMA\_ERR\_IRQHandler\ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00096}00096\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DMA\_INT3\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00097}00097\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DMA\_INT2\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00098}00098\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DMA\_INT1\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00099}00099\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ DMA\_INT0\_IRQHandler\ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00100}00100\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT1\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00101}00101\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT2\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00102}00102\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT3\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00103}00103\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT4\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00104}00104\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT5\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00105}00105\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ PORT6\_IRQHandler\ \ \ \ (\textcolor{keywordtype}{void})\ \_\_attribute\_\_((weak,alias(\textcolor{stringliteral}{"{}Default\_Handler"{}})));}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00107}00107\ \textcolor{comment}{/*\ Interrupt\ vector\ table.\ \ Note\ that\ the\ proper\ constructs\ must\ be\ placed\ on\ this\ to\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00108}00108\ \textcolor{comment}{/*\ ensure\ that\ it\ ends\ up\ at\ physical\ address\ 0x0000.0000\ or\ at\ the\ start\ of\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00109}00109\ \textcolor{comment}{/*\ the\ program\ if\ located\ at\ a\ start\ address\ other\ than\ 0.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00110}00110\ \textcolor{preprocessor}{\#pragma\ RETAIN(interruptVectors)}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00111}00111\ \textcolor{preprocessor}{\#pragma\ DATA\_SECTION(interruptVectors,\ "{}.intvecs"{})}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00112}00112\ void\ (*\ \textcolor{keyword}{const}\ interruptVectors[])(void)\ =}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00113}00113\ \{}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00114}00114\ \ \ \ \ (void\ (*)(void))((uint32\_t)\&\_\_STACK\_END),}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ initial\ stack\ pointer\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00116}00116\ \ \ \ \ Reset\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ reset\ handler\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00117}00117\ \ \ \ \ NMI\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ NMI\ handler\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00118}00118\ \ \ \ \ HardFault\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ hard\ fault\ handler\ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00119}00119\ \ \ \ \ MemManage\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ MPU\ fault\ handler\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00120}00120\ \ \ \ \ BusFault\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ bus\ fault\ handler\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00121}00121\ \ \ \ \ UsageFault\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ usage\ fault\ handler\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00122}00122\ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00123}00123\ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00124}00124\ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00125}00125\ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00126}00126\ \ \ \ \ SVC\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ SVCall\ handler\ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00127}00127\ \ \ \ \ DebugMon\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Debug\ monitor\ handler\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00128}00128\ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reserved\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00129}00129\ \ \ \ \ PendSV\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ PendSV\ handler\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00130}00130\ \ \ \ \ SysTick\_Handler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ SysTick\ handler\ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00131}00131\ \ \ \ \ PSS\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ PSS\ Interrupt\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00132}00132\ \ \ \ \ CS\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ CS\ Interrupt\ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00133}00133\ \ \ \ \ PCM\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ PCM\ Interrupt\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00134}00134\ \ \ \ \ WDT\_A\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ WDT\_A\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00135}00135\ \ \ \ \ FPU\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ FPU\ Interrupt\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00136}00136\ \ \ \ \ FLCTL\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Flash\ Controller\ Interrupt*/}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00137}00137\ \ \ \ \ COMP\_E0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ COMP\_E0\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00138}00138\ \ \ \ \ COMP\_E1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ COMP\_E1\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00139}00139\ \ \ \ \ TA0\_0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA0\_0\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00140}00140\ \ \ \ \ TA0\_N\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA0\_N\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00141}00141\ \ \ \ \ TA1\_0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA1\_0\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00142}00142\ \ \ \ \ TA1\_N\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA1\_N\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00143}00143\ \ \ \ \ TA2\_0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA2\_0\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00144}00144\ \ \ \ \ TA2\_N\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA2\_N\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00145}00145\ \ \ \ \ TA3\_0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA3\_0\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00146}00146\ \ \ \ \ TA3\_N\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ TA3\_N\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00147}00147\ \ \ \ \ EUSCIA0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIA0\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00148}00148\ \ \ \ \ EUSCIA1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIA1\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00149}00149\ \ \ \ \ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}{EUSCIA2\_IRQHandler}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIA2\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00150}00150\ \ \ \ \ EUSCIA3\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIA3\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00151}00151\ \ \ \ \ EUSCIB0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIB0\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00152}00152\ \ \ \ \ EUSCIB1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIB1\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00153}00153\ \ \ \ \ EUSCIB2\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIB2\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00154}00154\ \ \ \ \ EUSCIB3\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ EUSCIB3\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00155}00155\ \ \ \ \ ADC14\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ ADC14\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00156}00156\ \ \ \ \ T32\_INT1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T32\_INT1\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00157}00157\ \ \ \ \ T32\_INT2\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T32\_INT2\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00158}00158\ \ \ \ \ T32\_INTC\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ T32\_INTC\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00159}00159\ \ \ \ \ AES256\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ AES256\ Interrupt\ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00160}00160\ \ \ \ \ RTC\_C\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ RTC\_C\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00161}00161\ \ \ \ \ DMA\_ERR\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DMA\_ERR\ Interrupt\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00162}00162\ \ \ \ \ DMA\_INT3\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DMA\_INT3\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00163}00163\ \ \ \ \ DMA\_INT2\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DMA\_INT2\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00164}00164\ \ \ \ \ DMA\_INT1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DMA\_INT1\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00165}00165\ \ \ \ \ DMA\_INT0\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ DMA\_INT0\ Interrupt\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00166}00166\ \ \ \ \ PORT1\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port1\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00167}00167\ \ \ \ \ PORT2\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port2\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00168}00168\ \ \ \ \ PORT3\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port3\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00169}00169\ \ \ \ \ PORT4\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port4\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00170}00170\ \ \ \ \ PORT5\_IRQHandler,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port5\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00171}00171\ \ \ \ \ PORT6\_IRQHandler\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Port6\ Interrupt\ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00172}00172\ \};}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00174}00174\ \textcolor{comment}{/*\ Forward\ declaration\ of\ the\ default\ fault\ handlers.\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00175}00175\ \textcolor{comment}{/*\ This\ is\ the\ code\ that\ gets\ called\ when\ the\ processor\ first\ starts\ execution\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00176}00176\ \textcolor{comment}{/*\ following\ a\ reset\ event.\ \ Only\ the\ absolutely\ necessary\ set\ is\ performed,\ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00177}00177\ \textcolor{comment}{/*\ after\ which\ the\ application\ supplied\ entry()\ routine\ is\ called.\ \ Any\ fancy\ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00178}00178\ \textcolor{comment}{/*\ actions\ (such\ as\ making\ decisions\ based\ on\ the\ reset\ cause\ register,\ and\ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00179}00179\ \textcolor{comment}{/*\ resetting\ the\ bits\ in\ that\ register)\ are\ left\ solely\ in\ the\ hands\ of\ the\ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00180}00180\ \textcolor{comment}{/*\ application.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00181}00181\ \textcolor{keywordtype}{void}\ Reset\_Handler(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00182}00182\ \{}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00183}00183\ \ \ \ \ SystemInit();}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00185}00185\ \ \ \ \ \textcolor{comment}{/*\ Jump\ to\ the\ CCS\ C\ Initialization\ Routine.\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00186}00186\ \ \ \ \ \_\_asm(\textcolor{stringliteral}{"{}\ \ \ \ .global\ \_c\_int00\(\backslash\)n"{}}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ \ \ \ b.w\ \ \ \ \ \_c\_int00"{}});}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00188}00188\ \}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00191}00191\ \textcolor{comment}{/*\ This\ is\ the\ code\ that\ gets\ called\ when\ the\ processor\ receives\ an\ unexpected\ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00192}00192\ \textcolor{comment}{/*\ interrupt.\ \ This\ simply\ enters\ an\ infinite\ loop,\ preserving\ the\ system\ state\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00193}00193\ \textcolor{comment}{/*\ for\ examination\ by\ a\ debugger.\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00194}00194\ \textcolor{keywordtype}{void}\ Default\_Handler(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00195}00195\ \{}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00196}00196\ \ \ \ \ \textcolor{comment}{/*\ Fault\ trap\ exempt\ from\ ULP\ advisor\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00197}00197\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ diag\_push}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00198}00198\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ CHECK\_ULP("{}-\/2.1"{})}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00200}00200\ \ \ \ \ \textcolor{comment}{/*\ Enter\ an\ infinite\ loop.\ */}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00202}00202\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00203}00203\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00205}00205\ \textcolor{preprocessor}{\ \ \ \ \#pragma\ diag\_pop}}
+\DoxyCodeLine{\Hypertarget{startup__msp432p401r__ccs_8c_source_l00206}00206\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,44 @@
+\chapter{My Project}
+\hypertarget{index}{}\label{index}\index{My Project@{My Project}}
+\hypertarget{index_intro}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{index_intro}
+This example shows how to configure the UART module as loopback mode. The example receives a character from the UART trasnmitter and echoes it back to the same UART transmitter. The example uses the following peripherals and I/O signals. You must review these and change as needed for your own board\+:
+\begin{DoxyEnumerate}
+\item UART peripheral
+\item GPIO Port peripheral (for UART pins)
+\item UART\+\_\+\+TXD
+\item UART\+\_\+\+RXD 
+\end{DoxyEnumerate}\hypertarget{index_hw}{}\doxysection{\texorpdfstring{HW and SW Configuration}{HW and SW Configuration}}\label{index_hw}
+\hypertarget{index_hwconfig}{}\doxysubsection{\texorpdfstring{Hardware Configuration}{Hardware Configuration}}\label{index_hwconfig}
+This example can be run on any MSP432 board. It is not necessary to change any hardware settings to run this example. \hypertarget{index_swconfig}{}\doxysubsection{\texorpdfstring{Software Configuration}{Software Configuration}}\label{index_swconfig}
+This example uses the following peripherals and I/O signals. You must review these and change as needed for your own board\+:
+\begin{DoxyEnumerate}
+\item Configure UART pins for UART
+\item Configure UART peripheral
+\item Configure GPIOs for LEDs 
+\end{DoxyEnumerate}\hypertarget{index_resources}{}\doxysubsection{\texorpdfstring{Resources}{Resources}}\label{index_resources}
+
+\begin{DoxyEnumerate}
+\item \href{http://www.ti.com/litv/pdf/swru367}{\texttt{ MSP432 Family User\textquotesingle{}s Guide}} -\/ Describes the UART module
+\item \href{http://www.ti.com/litv/pdf/slau356}{\texttt{ MSP432\+P4xx Technical Reference Manual}} -\/ Describes the UART module 
+\end{DoxyEnumerate}\hypertarget{index_exampledescription}{}\doxysection{\texorpdfstring{Description of the example}{Description of the example}}\label{index_exampledescription}
+The example receives a character from the UART trasnmitter and echoes it back to the same UART transmitter. \hypertarget{index_APIs}{}\doxysection{\texorpdfstring{APIs Used}{APIs Used}}\label{index_APIs}
+
+\begin{DoxyEnumerate}
+\item UART\+\_\+init\+Module()
+\item UART\+\_\+enable\+Module()
+\item UART\+\_\+enable\+Interrupt()
+\item UART\+\_\+transmit\+Data()
+\item UART\+\_\+receive\+Data()
+\item Interrupt\+\_\+enable\+Interrupt()
+\item Interrupt\+\_\+enable\+Sleep\+On\+Isr\+Exit()
+\item Interrupt\+\_\+disable\+Sleep\+On\+Isr\+Exit()
+\item PCM\+\_\+goto\+LPM0\+Interrupt\+Safe()
+\item GPIO\+\_\+set\+As\+Output\+Pin()
+\item GPIO\+\_\+set\+Output\+Low\+On\+Pin()
+\item GPIO\+\_\+set\+Output\+High\+On\+Pin()
+\item GPIO\+\_\+set\+As\+Peripheral\+Module\+Function\+Input\+Pin() 
+\end{DoxyEnumerate}\hypertarget{index_files}{}\doxysection{\texorpdfstring{Files Used}{Files Used}}\label{index_files}
+
+\begin{DoxyEnumerate}
+\item \doxylink{uart__loopback__24mhz__brclk_8c}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c} 
+\end{DoxyEnumerate}

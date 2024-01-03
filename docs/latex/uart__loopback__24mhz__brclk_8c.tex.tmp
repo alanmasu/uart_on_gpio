@@ -1,0 +1,243 @@
+\doxysection{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c File Reference}
+\hypertarget{uart__loopback__24mhz__brclk_8c}{}\label{uart__loopback__24mhz__brclk_8c}\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+
+
+UART Loopback at 24MHz using.  
+
+
+{\ttfamily \#include $<$ti/devices/msp432p4xx/driverlib/driverlib.\+h$>$}\newline
+{\ttfamily \#include $<$ti/devices/msp432p4xx/driverlib/dma.\+h$>$}\newline
+{\ttfamily \#include $<$ti/devices/msp432p4xx/inc/msp.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+Include dependency graph for uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c\+:
+% FIG 0
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a739a2a1a0047c98ac1b18ecd25dac092}{RX\+\_\+\+BUFFER\+\_\+\+SIZE}}~256
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
+\begin{DoxyCompactList}\small\item\em This function initializes all the peripherals used in this example and enables the global interrupt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}{EUSCIA2\+\_\+\+IRQHandler}} (void)
+\begin{DoxyCompactList}\small\item\em This function handles the UART RX interrupt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_ae369b896b0180297d61764643f99ba25}{TXData}} = 1
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{RXData}} = 0
+\begin{DoxyCompactList}\small\item\em UART internal loopback data. \end{DoxyCompactList}\item 
+uint\+\_\+fast8\+\_\+t \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{data}} \mbox{[}RX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\begin{DoxyCompactList}\small\item\em UART internal loopback data ~\newline
+ \end{DoxyCompactList}\item 
+volatile uint\+\_\+fast16\+\_\+t \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{data\+Count}} = 0
+\begin{DoxyCompactList}\small\item\em Serial RX buffer. \end{DoxyCompactList}\item 
+volatile bool \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}{string\+End}} = false
+\begin{DoxyCompactList}\small\item\em Serial RX buffer counter. \end{DoxyCompactList}\item 
+const e\+USCI\+\_\+\+UART\+\_\+\+Config\+V1 \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6}{uart\+Config}}
+\begin{DoxyCompactList}\small\item\em Serial RX buffer end flag. \end{DoxyCompactList}\item 
+const e\+USCI\+\_\+\+UART\+\_\+\+Config\+V1 \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_abb21e3a1124e978cf43b8a6870995ea4}{pc\+Uart\+Config}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+UART Loopback at 24MHz using. 
+
+
+
+Definition in file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a739a2a1a0047c98ac1b18ecd25dac092}\label{uart__loopback__24mhz__brclk_8c_a739a2a1a0047c98ac1b18ecd25dac092} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!RX\_BUFFER\_SIZE@{RX\_BUFFER\_SIZE}}
+\index{RX\_BUFFER\_SIZE@{RX\_BUFFER\_SIZE}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{RX\_BUFFER\_SIZE}{RX\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define RX\+\_\+\+BUFFER\+\_\+\+SIZE~256}
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00060}{60}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}\label{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!EUSCIA2\_IRQHandler@{EUSCIA2\_IRQHandler}}
+\index{EUSCIA2\_IRQHandler@{EUSCIA2\_IRQHandler}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{EUSCIA2\_IRQHandler()}{EUSCIA2\_IRQHandler()}}
+{\footnotesize\ttfamily void EUSCIA2\+\_\+\+IRQHandler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This function handles the UART RX interrupt. 
+
+It reads the data from RX register until character "{}\textbackslash{}n\textbackslash{}r"{} is received and moves into the RX buffer on the memory. It also sets the string\+End flag to indicate the end of the string. 
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00187}{187}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{uart__loopback__24mhz__brclk_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!main@{main}}
+\index{main@{main}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This function initializes all the peripherals used in this example and enables the global interrupt. 
+
+DMA Control Table for 32 DMA channels DMA Control Table for 32 DMA channels aligned to 1024 byte boundary
+
+
+\begin{DoxyParams}{Parameters}
+{\em none} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00124}{124}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}\label{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!data@{data}}
+\index{data@{data}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily uint\+\_\+fast8\+\_\+t data\mbox{[}RX\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}}
+
+
+
+UART internal loopback data ~\newline
+ 
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00064}{64}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}\label{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!dataCount@{dataCount}}
+\index{dataCount@{dataCount}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{dataCount}{dataCount}}
+{\footnotesize\ttfamily volatile uint\+\_\+fast16\+\_\+t data\+Count = 0}
+
+
+
+Serial RX buffer. 
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00065}{65}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_abb21e3a1124e978cf43b8a6870995ea4}\label{uart__loopback__24mhz__brclk_8c_abb21e3a1124e978cf43b8a6870995ea4} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!pcUartConfig@{pcUartConfig}}
+\index{pcUartConfig@{pcUartConfig}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{pcUartConfig}{pcUartConfig}}
+{\footnotesize\ttfamily const e\+USCI\+\_\+\+UART\+\_\+\+Config\+V1 pc\+Uart\+Config}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_CLOCKSOURCE\_SMCLK,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 13,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 37,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_NO\_PARITY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_LSB\_FIRST,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_ONE\_STOP\_BIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_OVERSAMPLING\_BAUDRATE\_GENERATION,\ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_8\_BIT\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00088}{88}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}\label{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!RXData@{RXData}}
+\index{RXData@{RXData}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{RXData}{RXData}}
+{\footnotesize\ttfamily uint8\+\_\+t RXData = 0}
+
+
+
+UART internal loopback data. 
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00063}{63}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}\label{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!stringEnd@{stringEnd}}
+\index{stringEnd@{stringEnd}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{stringEnd}{stringEnd}}
+{\footnotesize\ttfamily volatile bool string\+End = false}
+
+
+
+Serial RX buffer counter. 
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00066}{66}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_ae369b896b0180297d61764643f99ba25}\label{uart__loopback__24mhz__brclk_8c_ae369b896b0180297d61764643f99ba25} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!TXData@{TXData}}
+\index{TXData@{TXData}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{TXData}{TXData}}
+{\footnotesize\ttfamily uint8\+\_\+t TXData = 1}
+
+
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00062}{62}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+
+\Hypertarget{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6}\label{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6} 
+\index{uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}!uartConfig@{uartConfig}}
+\index{uartConfig@{uartConfig}!uart\_loopback\_24mhz\_brclk.c@{uart\_loopback\_24mhz\_brclk.c}}
+\doxysubsubsection{\texorpdfstring{uartConfig}{uartConfig}}
+{\footnotesize\ttfamily const e\+USCI\+\_\+\+UART\+\_\+\+Config\+V1 uart\+Config}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_CLOCKSOURCE\_SMCLK,\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 156,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_NO\_PARITY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_LSB\_FIRST,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_ONE\_STOP\_BIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_OVERSAMPLING\_BAUDRATE\_GENERATION,\ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ EUSCI\_A\_UART\_8\_BIT\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Serial RX buffer end flag. 
+
+Configuration Parameter. These are the configuration parameters to make the e\+USCI A UART module to operate with a 9600 baud rate. These values were calculated using the online calculator that TI provides at\+: \href{http://software-dl.ti.com/msp430/msp430_public_sw/mcu/msp430/MSP430BaudRateConverter/index.html}{\texttt{ http\+://software-\/dl.\+ti.\+com/msp430/msp430\+\_\+public\+\_\+sw/mcu/msp430/\+MSP430\+Baud\+Rate\+Converter/index.\+html}} 
+
+Definition at line \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source_l00074}{74}} of file \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_source}{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}}.
+

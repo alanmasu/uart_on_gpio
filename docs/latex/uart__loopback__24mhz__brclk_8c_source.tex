@@ -1,0 +1,143 @@
+\doxysection{uart\+\_\+loopback\+\_\+24mhz\+\_\+brclk.\+c}
+\hypertarget{uart__loopback__24mhz__brclk_8c_source}{}\label{uart__loopback__24mhz__brclk_8c_source}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00051}00051\ \textcolor{comment}{/*\ DriverLib\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00052}00052\ \textcolor{preprocessor}{\#include\ <ti/devices/msp432p4xx/driverlib/driverlib.h>}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00053}00053\ \textcolor{preprocessor}{\#include\ <ti/devices/msp432p4xx/driverlib/dma.h>}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00054}00054\ \textcolor{preprocessor}{\#include\ <ti/devices/msp432p4xx/inc/msp.h>}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00056}00056\ \textcolor{comment}{/*\ Standard\ Includes\ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00057}00057\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00058}00058\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00060}00060\ \textcolor{preprocessor}{\#define\ RX\_BUFFER\_SIZE\ 256\ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00062}00062\ uint8\_t\ TXData\ =\ 1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00063}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{00063}}\ uint8\_t\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{RXData}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00064}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{00064}}\ uint\_fast8\_t\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{data}}[RX\_BUFFER\_SIZE];\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00065}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{00065}}\ \textcolor{keyword}{volatile}\ uint\_fast16\_t\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}}\ =\ 0;\ \ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00066}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}{00066}}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}{stringEnd}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00074}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6}{00074}}\ \textcolor{keyword}{const}\ eUSCI\_UART\_ConfigV1\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6}{uartConfig}}\ =}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00075}00075\ \{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_CLOCKSOURCE\_SMCLK,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ SMCLK\ Clock\ Source}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ 156,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BRDIV\ =\ 13}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00078}00078\ \ \ \ \ \ \ \ \ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UCxBRF\ =\ 0}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UCxBRS\ =\ 37}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00080}00080\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_NO\_PARITY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Parity}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00081}00081\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_LSB\_FIRST,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LSB\ First}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00082}00082\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_ONE\_STOP\_BIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ One\ stop\ bit}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00083}00083\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UART\ mode}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_OVERSAMPLING\_BAUDRATE\_GENERATION,\ \ \textcolor{comment}{//\ Oversampling}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_8\_BIT\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 8\ bit\ data\ length}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00086}00086\ \};}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00088}00088\ \textcolor{keyword}{const}\ eUSCI\_UART\_ConfigV1\ pcUartConfig\ =}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00089}00089\ \{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_CLOCKSOURCE\_SMCLK,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ SMCLK\ Clock\ Source}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ 13,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ BRDIV\ =\ 13}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00092}00092\ \ \ \ \ \ \ \ \ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UCxBRF\ =\ 0}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ 37,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UCxBRS\ =\ 37}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00094}00094\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_NO\_PARITY,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ Parity}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_LSB\_FIRST,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ LSB\ First}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_ONE\_STOP\_BIT,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ One\ stop\ bit}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_MODE,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UART\ mode}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_OVERSAMPLING\_BAUDRATE\_GENERATION,\ \ \textcolor{comment}{//\ Oversampling}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ EUSCI\_A\_UART\_8\_BIT\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 8\ bit\ data\ length}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00100}00100\ \};}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00104}00104\ \textcolor{preprocessor}{\#if\ defined(\_\_TI\_COMPILER\_VERSION\_\_)}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00105}00105\ \textcolor{preprocessor}{\#pragma\ DATA\_ALIGN(MSP\_EXP432P401RLP\_DMAControlTable,\ 1024)}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00106}00106\ \textcolor{preprocessor}{\#elif\ defined(\_\_IAR\_SYSTEMS\_ICC\_\_)}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00107}00107\ \textcolor{preprocessor}{\#pragma\ data\_alignment=1024}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00108}00108\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00109}00109\ \_\_attribute\_\_\ ((aligned\ (1024)))}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00110}00110\ \textcolor{preprocessor}{\#elif\ defined(\_\_CC\_ARM)}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00111}00111\ \_\_align(1024)}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00112}00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00113}00113\ \textcolor{keyword}{static}\ DMA\_ControlTable\ MSP\_EXP432P401RLP\_DMAControlTable[32];\ \ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00124}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a840291bc02cba5474a4cb46a9b9566fe}{00124}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}}(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00125}00125\ \ \ \ \ \textcolor{comment}{/*\ Halting\ WDT\ \ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00126}00126\ \ \ \ \ MAP\_WDT\_A\_holdTimer();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00128}00128\ \ \ \ \ \textcolor{comment}{/*\ P1.0\ as\ output\ (LED)\ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00129}00129\ \ \ \ \ MAP\_GPIO\_setAsOutputPin(GPIO\_PORT\_P1,\ GPIO\_PIN0);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00130}00130\ \ \ \ \ MAP\_GPIO\_setOutputLowOnPin(GPIO\_PORT\_P1,\ GPIO\_PIN0);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00131}00131\ \ \ \ \ \textcolor{comment}{//Set\ RGB\ led\ pins\ as\ output}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00132}00132\ \ \ \ \ MAP\_GPIO\_setAsOutputPin(GPIO\_PORT\_P2,\ GPIO\_PIN0);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00133}00133\ \ \ \ \ MAP\_GPIO\_setAsOutputPin(GPIO\_PORT\_P2,\ GPIO\_PIN1);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00134}00134\ \ \ \ \ MAP\_GPIO\_setAsOutputPin(GPIO\_PORT\_P2,\ GPIO\_PIN2);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00136}00136\ \ \ \ \ \textcolor{comment}{/*\ Setting\ DCO\ to\ 24MHz\ (upping\ Vcore)\ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00137}00137\ \ \ \ \ FlashCtl\_setWaitState(FLASH\_BANK0,\ 1);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00138}00138\ \ \ \ \ FlashCtl\_setWaitState(FLASH\_BANK1,\ 1);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00139}00139\ \ \ \ \ MAP\_PCM\_setCoreVoltageLevel(PCM\_VCORE1);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00140}00140\ \ \ \ \ CS\_setDCOCenteredFrequency(CS\_DCO\_FREQUENCY\_24);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00143}00143\ \ \ \ \ \textcolor{comment}{/*\ Configuring\ UART\ Modules\ */}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00144}00144\ \ \ \ \ \textcolor{comment}{//Setting\ pins}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00145}00145\ \ \ \ \ MAP\_GPIO\_setAsPeripheralModuleFunctionInputPin(GPIO\_PORT\_P3,}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO\_PIN2\ |\ GPIO\_PIN3,\ GPIO\_PRIMARY\_MODULE\_FUNCTION);\ \ \textcolor{comment}{//GPS}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00147}00147\ \ \ \ \ MAP\_GPIO\_setAsPeripheralModuleFunctionInputPin(GPIO\_PORT\_P1,}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GPIO\_PIN2\ |\ GPIO\_PIN3,\ GPIO\_PRIMARY\_MODULE\_FUNCTION);\ \ \ \textcolor{comment}{//PC}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00149}00149\ \ \ \ \ \textcolor{comment}{//Configure\ module}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00150}00150\ \ \ \ \ MAP\_UART\_initModule(EUSCI\_A2\_BASE,\ \&\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_ad359190a2ebcf7279dc06e2c6e41aac6}{uartConfig}});\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//GPS}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00151}00151\ \ \ \ \ MAP\_UART\_initModule(EUSCI\_A0\_BASE,\ \&pcUartConfig);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//PC}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00152}00152\ \ \ \ \ \textcolor{comment}{//\ Enable\ UART\ module}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00153}00153\ \ \ \ \ MAP\_UART\_enableModule(EUSCI\_A2\_BASE);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//GPS}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00154}00154\ \ \ \ \ MAP\_UART\_enableModule(EUSCI\_A0\_BASE);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//PC}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00155}00155\ \ \ \ \ \textcolor{comment}{//\ Enabling\ interrupts}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00156}00156\ \ \ \ \ MAP\_UART\_enableInterrupt(EUSCI\_A2\_BASE,\ EUSCI\_A\_UART\_RECEIVE\_INTERRUPT);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00157}00157\ \ \ \ \ MAP\_Interrupt\_enableInterrupt(INT\_EUSCIA2);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00158}00158\ \textcolor{comment}{//\ \ \ \ MAP\_UART\_enableInterrupt(EUSCI\_A0\_BASE,\ EUSCI\_A\_UART\_RECEIVE\_INTERRUPT);}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00159}00159\ \textcolor{comment}{//\ \ \ \ MAP\_Interrupt\_enableInterrupt(INT\_EUSCIA0);}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00161}00161\ \ \ \ \ \textcolor{comment}{//DMA}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00162}00162\ \ \ \ \ MAP\_DMA\_enableModule();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00163}00163\ \ \ \ \ MAP\_DMA\_setControlBase(MSP\_EXP432P401RLP\_DMAControlTable);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00164}00164\ \ \ \ \ MAP\_DMA\_assignChannel(DMA\_CH5\_EUSCIA2RX);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00166}00166\ \ \ \ \ MAP\_Interrupt\_enableSleepOnIsrExit();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00167}00167\ \ \ \ \ \textcolor{keywordflow}{while}(1)\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}{stringEnd}})\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}};\ ++i)\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MAP\_UART\_transmitData(EUSCI\_A0\_BASE,\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{data}}[i]);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ MAP\_Interrupt\_enableSleepOnIsrExit();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ MAP\_PCM\_gotoLPM0InterruptSafe();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00176}00176\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00177}00177\ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00187}\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}{00187}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_aaa26fcaa58d0e9fbebb461908cd02917}{EUSCIA2\_IRQHandler}}(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00188}00188\ \ \ \ \ uint32\_t\ status\ =\ MAP\_UART\_getEnabledInterruptStatus(EUSCI\_A2\_BASE);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{if}(status\ \&\ EUSCI\_A\_UART\_RECEIVE\_INTERRUPT\_FLAG)\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{RXData}}\ =\ MAP\_UART\_receiveData(EUSCI\_A2\_BASE);}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00192}00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}}\ <\ RX\_BUFFER\_SIZE)\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{data}}[\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}}++]\ =\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{RXData}};}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}}\ >\ RX\_BUFFER\_SIZE\ -\/\ 1\ ||\ (\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a597ef8ed788642728c57f66b3a21544f}{RXData}}\ ==\ \textcolor{charliteral}{'\(\backslash\)r'}\ \&\&\ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a4a1b855e904677659d05e574abb3a647}{data}}[\mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a00c85eb340867741f64c863c6f00146a}{dataCount}}-\/1]\ ==\ \textcolor{charliteral}{'\(\backslash\)n'}))\{}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uart__loopback__24mhz__brclk_8c_a39f4a5757801683c2262327235bf9398}{stringEnd}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ MAP\_Interrupt\_disableSleepOnIsrExit();}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00199}00199\ \}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00200}00200\ }
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00201}00201\ \textcolor{comment}{//void\ EUSCIA0\_IRQHandler(void)\{}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00202}00202\ \textcolor{comment}{//\ \ \ \ uint32\_t\ status\ =\ MAP\_UART\_getEnabledInterruptStatus(EUSCI\_A0\_BASE);}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00203}00203\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00204}00204\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00205}00205\ \textcolor{comment}{//\ \ \ \ if(status\ \&\ EUSCI\_A\_UART\_RECEIVE\_INTERRUPT\_FLAG)\{}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00206}00206\ \textcolor{comment}{//\ \ \ \ \ \ \ \ uint\_fast8\_t\ data\ =\ MAP\_UART\_receiveData(EUSCI\_A0\_BASE);}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00207}00207\ \textcolor{comment}{//\ \ \ \ \ \ \ \ MAP\_UART\_transmitData(EUSCI\_A0\_BASE,\ data);}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00208}00208\ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00209}00209\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uart__loopback__24mhz__brclk_8c_source_l00210}00210\ \textcolor{comment}{//\}}}
+
+\end{DoxyCode}
